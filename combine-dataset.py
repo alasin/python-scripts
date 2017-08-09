@@ -28,12 +28,16 @@ a = parser.parse_args()
 input_dirs = a.input_dirs
 output_dir = a.output_dir
 
-if not os.path.isdir(output_dir):
-    os.makedirs(output_dir)
-
 img_type = '.' + a.extension
 
-count = 1
+if not os.path.isdir(output_dir):
+    os.makedirs(output_dir)
+    count = 1
+else:
+    regex = output_dir + '*' + img_type
+    img_list = glob.glob(regex)
+    count = len(img_list) + 1
+
 for dir_name in input_dirs:
     if not os.path.isdir(dir_name):
         continue
